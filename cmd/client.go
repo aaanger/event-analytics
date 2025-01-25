@@ -1,4 +1,4 @@
-// Test gRPC client for generating events
+// Test gRPC client for generating random events
 
 package main
 
