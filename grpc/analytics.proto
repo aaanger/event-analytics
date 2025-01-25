@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package grpc;
+
+option go_package = "github.com/aaanger/event-analytics/grpc";
+
+message UniqueUsersRequest {
+  string startDate = 1;
+  string endDate = 2;
+  string pageURL = 3;
+}
+
+message UniqueUsersResponse {
+  int64 users = 1;
+}
+
+message PageViewsRequest {
+  string startDate = 1;
+  string endDate = 2;
+  string pageURL = 3;
+}
+
+message PageViewsResponse {
+  int64 views = 1;
+}
+
+message TopPagesRequest {
+  string startDate = 1;
+  string endDate = 2;
+}
+
+message PageStats {
+  string pageURL = 1;
+  int64 views = 2;
+}
+
+message TopPagesResponse {
+  repeated PageStats pages = 1;
+}
+
+service Analytics {
+  rpc GetUniqueUsers (UniqueUsersRequest) returns (UniqueUsersResponse);
+  rpc GetPageViews (PageViewsRequest) returns (PageViewsResponse);
+  rpc GetTopPages (TopPagesRequest) returns (TopPagesResponse);
+}
