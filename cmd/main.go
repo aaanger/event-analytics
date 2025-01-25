@@ -14,9 +14,9 @@ func main() {
 	}
 
 	db, err := db.Open(db.ClickHouseConfig{
-		Username: os.Getenv("clickhouse_user"),
-		Password: os.Getenv("clickhouse_password"),
-		Database: os.Getenv("clickhouse_dbname"),
+		Username: os.Getenv("CLICKHOUSE_USER"),
+		Password: os.Getenv("CLICKHOUSE_PASSWORD"),
+		Database: os.Getenv("CLICKHOUSE_DB"),
 	})
 
 	if err != nil {

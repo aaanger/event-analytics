@@ -16,7 +16,6 @@ func (h *EventHandler) SaveEvent(ctx context.Context, req *pb.EventRequest) (*pb
 	err := h.repo.SaveEvent(ctx, models.Event{
 		UserID:    req.UserId,
 		PageURL:   req.Url,
-		EventType: req.EventType,
 		Timestamp: req.Timestamp,
 	})
 	if err != nil {

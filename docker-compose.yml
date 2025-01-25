@@ -1,29 +1,28 @@
 version: "3.9"
 
 services:
-  clickhouse-zookeeper:
-    image: zookeeper
-    ports:
-      - "2181:2181"
-      - "2182:2182"
-    container_name: clickhouse-zookeeper
-    hostname: clickhouse-zookeeper
-
-  clickhouse-01:
+  clickhouse:
     image: yandex/clickhouse-server
-    hostname: clickhouse-01
-    container_name: clickhouse-01
+    container_name: clickhouse
     ports:
-      - 9001:9000
+      - "8123:8123"
+      - "9000:9000"
     volumes:
-      - ./config/clickhouse_config.xml:/etc/clickhouse-server/config.xml
-      - ./config/clickhouse_metrika.xml:/etc/clickhouse-server/metrika.xml
-      - ./config/macros/macros-01.xml:/etc/clickhouse-server/config.d/macros.xml
-      - ./config/users.xml:/etc/clickhouse-server/users.xml
-      # - ./data/server-01:/var/lib/clickhouse
-    ulimits:
-      nofile:
-        soft: 262144
-        hard: 262144
+      - clickhouse_data:/var/lib/clickhouse
+    environment:
+      - CLICKHOUSE_USER=${CLICKHOUSE_USER}
+      - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}
+      - CLICKHOUSE_DB=${CLICKHOUSE_DB}
+  grpc-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: grpc-server
+    restart: always
+    ports:
+      - "50051:50051"
+    environment:
+      CLICKHOUSE_HOST: clickhouse
+      CLICKHOUSE_PORT: 9000
     depends_on:
-      - "clickhouse-zookeeper"
+      - clickhouse

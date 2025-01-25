@@ -22,8 +22,8 @@ func NewEventRepository(db clickhouse.Conn) *EventRepository {
 }
 
 func (r *EventRepository) SaveEvent(ctx context.Context, event models.Event) error {
-	err := r.db.Exec(ctx, `INSERT INTO events (user_id, page_url, event_type, timestamp, views) VALUES(?, ?, ?, ?, 1)`,
-		event.UserID, event.PageURL, event.EventType, event.Timestamp)
+	err := r.db.Exec(ctx, `INSERT INTO events (user_id, page_url, timestamp, views) VALUES(?, ?, ?, 1)`,
+		event.UserID, event.PageURL, event.Timestamp)
 	if err != nil {
 		return err
 	}
