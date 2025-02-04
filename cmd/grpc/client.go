@@ -1,6 +1,6 @@
 // Test gRPC client for generating random events
 
-package main
+package grpc
 
 import (
 	"context"

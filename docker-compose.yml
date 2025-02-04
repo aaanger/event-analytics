@@ -5,10 +5,8 @@ services:
     image: yandex/clickhouse-server
     container_name: clickhouse
     ports:
-      - "8123:8123"
       - "9000:9000"
-    volumes:
-      - clickhouse_data:/var/lib/clickhouse
+
     environment:
       - CLICKHOUSE_USER=${CLICKHOUSE_USER}
       - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}

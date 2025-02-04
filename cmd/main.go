@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/aaanger/event-analytics/cmd/grpc"
 	"github.com/aaanger/event-analytics/pkg/db"
 	"github.com/joho/godotenv"
 	"log"
@@ -23,7 +24,7 @@ func main() {
 		log.Fatalf("error connecting to clickhouse db: %s", err)
 	}
 
-	server := NewServer(db, os.Getenv("server_port"))
+	server := grpc.NewServer(db, os.Getenv("server_port"))
 	err = server.Run()
 	if err != nil {
 		log.Fatalf("error running grpc server: %s", err)

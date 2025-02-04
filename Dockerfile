@@ -1,6 +1,5 @@
-FROM golang:1.23.4
+FROM golang:1.23.4 AS grpc-server
 
-WORKDIR /app
 
 COPY go.mod go.sum ./
 
@@ -8,7 +7,7 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o grpc-server ./cmd/server
+RUN go build -o grpc-server ./cmd
 
 EXPOSE 50051
 
